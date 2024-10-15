@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart'; // Import this for kIsWeb
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,16 +20,17 @@ class _ModelIntegrationPageState extends State<ModelIntegrationPage> {
 
   // Load the TFLite model
   Future<void> loadModel() async {
-    await Tflite.loadModel(
+    String? res = await Tflite.loadModel(
       model: 'assets/model.tflite',
       labels: 'assets/labels.txt',
     );
+    print("Model Loaded: $res");
   }
 
-  // Pick an image from the gallery
-  Future<void> pickImage() async {
+  // Pick an image from the gallery or camera
+  Future<void> pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    var image = await picker.pickImage(source: ImageSource.gallery);
+    var image = await picker.pickImage(source: source);
 
     if (image != null) {
       setState(() {
@@ -46,9 +46,11 @@ class _ModelIntegrationPageState extends State<ModelIntegrationPage> {
       path: imagePath,
       imageMean: 0.0,
       imageStd: 255.0,
-      numResults: 2,
+      numResults: 2, // Adjust as per your model output
       threshold: 0.5,
     );
+
+    print("Model Output: $output"); // Debug log for prediction result
 
     setState(() {
       _output = output != null ? output.toString() : 'No result';
@@ -71,12 +73,10 @@ class _ModelIntegrationPageState extends State<ModelIntegrationPage> {
           children: [
             _image == null
                 ? Text('No image selected.')
-                : kIsWeb
-                    ? Image.network(_image!.path) // Use Image.network for web
-                    : Image.file(File(_image!.path)), // Use Image.file for mobile
+                : Image.file(File(_image!.path)),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: pickImage,
+              onPressed: () => pickImage(ImageSource.gallery),
               child: Text('Pick Image'),
             ),
             SizedBox(height: 20),

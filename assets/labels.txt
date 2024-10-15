@@ -1,5 +1,10 @@
-Healthy
-Dandruff
-Alopecia
-Fungal Infection
+Alopecia Areata
+Contact Dermatits
+Folliculitis
+Head Lice
+Lichen Planus
+Male Pattern Baldness
 Psoriasis
+Seborrheic Dermatitis
+Telogen Effluvium
+Tinea Captis
