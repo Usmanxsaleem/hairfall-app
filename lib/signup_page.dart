@@ -44,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   // App Logo (you can replace this with your logo)
                   Image.asset(
-                    'assets/logo.png', // Replace with your logo asset
+                    'LOGO1.png', // Replace with your logo asset
                     height: 120,
                     width: 120,
                   ),

@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   // App Logo
                   Image.asset(
-                    'haircare.JPG', // Replace with your logo asset
+                    'LOGO1.png', // Replace with your logo asset
                     height: 120,
                     width: 120,
                   ),

@@ -11,39 +11,96 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
+        backgroundColor: Colors.teal, // Customize the AppBar color
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],
       ),
-      body: Center(
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.tealAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            // App logo or image
+            Image.asset(
+              'LOGO1.png', // Replace with your image
+              height: 100, // Adjust height as needed
+            ),
+            const SizedBox(height: 40), // Space between image and buttons
+
+            // Take/Upload Forehead Picture button
+            ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => const ImageUploadPage()));
               },
-              child: const Text('Take/Upload Forehead Picture'),
+              icon: const Icon(Icons.camera_alt, color: Colors.white), // Add icon
+              label: const Text(
+                'Take/Upload Forehead Picture',
+                style: TextStyle(color: Colors.white), // Change text color to white
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.teal, // Button background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                ),
+              ),
             ),
-            ElevatedButton(
+            const SizedBox(height: 20), // Space between buttons
+
+            // Settings button
+            ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => const SettingsPage()));
               },
-              child: const Text('Settings'),
+              icon: const Icon(Icons.settings, color: Colors.white), // Add icon
+              label: const Text(
+                'Settings',
+                style: TextStyle(color: Colors.white), // Change text color to white
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.teal, // Button background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                ),
+              ),
             ),
-            ElevatedButton(
+            const SizedBox(height: 20), // Space between buttons
+
+            // View History button
+            ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => const ViewHistoryPage()));
               },
-              child: const Text('View History'),
+              icon: const Icon(Icons.history, color: Colors.white), // Add icon
+              label: const Text(
+                'View History',
+                style: TextStyle(color: Colors.white), // Change text color to white
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.teal, // Button background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                ),
+              ),
             ),
           ],
         ),

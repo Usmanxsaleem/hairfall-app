@@ -109,35 +109,80 @@ class _ImageUploadPageState extends State<ImageUploadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Upload Forehead Picture')),
-      body: Center(
+      appBar: AppBar(
+        title: const Text('Upload Forehead Picture'),
+        backgroundColor: Colors.teal, // Set AppBar color to teal
+      ),
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.tealAccent], // Background gradient
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _image != null
                 ? kIsWeb
-                    ? Image.network(_image!.path) // For web display
-                    : Image.file(File(_image!.path)) // For mobile display
-                : const Text('No image selected'),
+                    ? Image.network(_image!.path, height: 200) // For web display
+                    : Image.file(File(_image!.path), height: 200) // For mobile display
+                : const Text('No image selected', style: TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
-            ElevatedButton(
+
+            // Capture Image button
+            ElevatedButton.icon(
               onPressed: () => _pickImage(ImageSource.camera),
-              child: const Text('Capture Image'),
-            ),
-            ElevatedButton(
-              onPressed: () => _pickImage(ImageSource.gallery),
-              child: const Text('Select from Gallery'),
+              icon: const Icon(Icons.camera_alt, color: Colors.white),
+              label: const Text('Capture Image', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.teal,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            if (_image != null) // Only show this button if an image is selected
-              ElevatedButton(
+
+            // Select from Gallery button
+            ElevatedButton.icon(
+              onPressed: () => _pickImage(ImageSource.gallery),
+              icon: const Icon(Icons.photo, color: Colors.white),
+              label: const Text('Select from Gallery', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.teal,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Check Prediction button (only visible when an image is selected)
+            if (_image != null)
+              ElevatedButton.icon(
                 onPressed: _checkPrediction,
-                child: const Text('Check Prediction'),
+                icon: const Icon(Icons.check, color: Colors.white),
+                label: const Text('Check Prediction', style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  backgroundColor: Colors.teal,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
             const SizedBox(height: 20),
+
+            // Output or waiting text
             _output == null
-                ? const Text('Waiting for result...')
-                : Text('Prediction: $_output'),
+                ? const Text('Waiting for result...', style: TextStyle(fontSize: 16))
+                : Text('Prediction: $_output', style: const TextStyle(fontSize: 16)),
           ],
         ),
       ),
